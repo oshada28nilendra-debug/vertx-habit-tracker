@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "115012879184",
+    "project_id": "vertx-app",
+    "storage_bucket": "vertx-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115012879184:android:04a91b3e55f7e39872a255",
+        "android_client_info": {
+          "package_name": "com.example.vertx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115012879184-mges415q1t176jbjbffhq0qgs3rli3h9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vertx",
+            "certificate_hash": "14f897cda2e6e3b438db3e0c8729e5562607f264"
+          }
+        },
+        {
+          "client_id": "115012879184-4vpmqssouvmnu7gisnpf72r01mrj7c8o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6O3BJo9WMySzKXMyN5QmijHnooJ2TQuE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115012879184-4vpmqssouvmnu7gisnpf72r01mrj7c8o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
