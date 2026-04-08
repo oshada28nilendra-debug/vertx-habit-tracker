@@ -1104,7 +1104,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 // ============================================================
-// ANALYTICS PAGE — Role 5: AI & Analytics Developer
+// ANALYTICS PAGE : AI & Analytics Developer
 // Developer: Vidana Rakjitha | GitHub: nethuparakjitha
 // Features:
 //   - Weekly overview bar chart (7-day completion tracking)
