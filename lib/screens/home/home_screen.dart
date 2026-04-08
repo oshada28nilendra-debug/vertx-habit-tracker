@@ -36,7 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final email = _user?.email ?? '';
     return email.split('@').first;
   }
-
+// ============================================================
+// DATABASE & BACKEND MODULE — Role 1: Project Lead & Database Developer
+// Developer:Dissanayaka Dissanayaka
+// Responsibilities:
+// - Firebase Firestore database structure and configuration
+// - Security rules — user data isolation
+// - Streak calculation algorithm
+// - Daily habit reset system (SharedPreferences)
+// - GitHub repository management and deployment
+// ============================================================
   CollectionReference get _habitsRef => FirebaseFirestore.instance
       .collection('users')
       .doc(_user?.uid)
