@@ -176,7 +176,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 | Vidana rakjitha | @nethuparakjitha | AI & Analytics Developer |
 | Kotuwe Kotuwegedara | @Anupa2006 | Device Features Developer |
 | Dambure Geesilu | @vigee32 | Habit Management Developer |
-| Member 5 | @username | Role |
+| Samarasinghe Udesh | @InduwaraUS | Home Dashboard Developer |
 | Member 6 | @username | Role |
 | Member 7 | @username | Role |
 
