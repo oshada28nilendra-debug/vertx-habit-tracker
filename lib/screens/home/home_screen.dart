@@ -1103,7 +1103,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+// ============================================================
+// ANALYTICS PAGE — Role 5: AI & Analytics Developer
+// Developer: Vidana Rakjitha | GitHub: nethuparakjitha
+// Features:
+//   - Weekly overview bar chart (7-day completion tracking)
+//   - Today's completion progress with linear indicator
+//   - Best streak calculation across all habits
+//   - Total habits statistics card
+// ============================================================
   Widget _buildAnalyticsPage(List<QueryDocumentSnapshot> habits) {
     final completedCount =
         habits.where((h) => (h.data() as Map)['done'] == true).length;
@@ -1281,7 +1289,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+// Statistics Calculations — Best Streak & Total Habits
+// Developer: Vidana Rakjitha
   Widget _statCard(String title, String value, IconData icon, Color color,
       Color cardColor, Color textColor) {
     return Expanded(
