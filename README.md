@@ -175,7 +175,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 | Oshada Nilendra | [@oshada28nilendra-debug](https://github.com/oshada28nilendra-debug) | Project Lead & Full Stack Developer |
 | Vidana rakjitha | @nethuparakjitha | AI & Analytics Developer |
 | Kotuwe Kotuwegedara | @Anupa2006 | Device Features Developer |
-| Member 4 | @username | Role |
+| Dambure Geesilu | @vigee32 | Habit Management Developer |
 | Member 5 | @username | Role |
 | Member 6 | @username | Role |
 | Member 7 | @username | Role |
