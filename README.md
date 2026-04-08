@@ -177,7 +177,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 | Kotuwe Kotuwegedara | @Anupa2006 | Device Features Developer |
 | Dambure Geesilu | @vigee32 | Habit Management Developer |
 | Samarasinghe Udesh | @InduwaraUS | Home Dashboard Developer |
-| Member 6 | @username | Role |
+| Pincha Wickramasinghe | @PDCS-Codes | Authentication Developer |
 | Member 7 | @username | Role |
 
 ---
