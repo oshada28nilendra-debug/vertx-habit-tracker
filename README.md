@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  A smart daily habit tracker mobile application built with Flutter and Firebase, featuring AI-powered habit suggestions powered by Claude AI.
+  A smart daily habit tracker mobile application built with Flutter and Firebase, featuring AI-powered habit suggestions.
 </p>
 
 ---
@@ -39,7 +39,7 @@ Vertx is a feature-rich habit tracking mobile application developed as part of t
 ### 🤖 AI Features
 - AI-powered habit suggestions based on user goals
 - Smart keyword analysis for personalized recommendations
-
+- Powered by Claude AI (Anthropic)
 
 ### 📊 Analytics
 - Weekly overview bar chart
@@ -131,8 +131,58 @@ Firestore:
                 ├── streak: int
                 ├── lastCompleted: Timestamp
                 └── createdAt: Timestamp
+```
+
 ---
 
+## 🚀 Getting Started
+
+### Prerequisites
+- Flutter SDK (3.38.9+)
+- Android Studio
+- Firebase account
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/oshada28nilendra-debug/vertx-habit-tracker.git
+cd vertx-habit-tracker
+```
+
+2. **Install dependencies**
+```bash
+flutter pub get
+```
+
+3. **Add Firebase configuration**
+   - Add your `google-services.json` to `android/app/`
+   - Configure Firebase project with your SHA-1 fingerprint
+
+4. **Build and run**
+```bash
+cd android
+./gradlew assembleDebug
+adb install app/build/outputs/apk/debug/app-debug.apk
+```
+
+---
+
+## 👥 Team Members
+
+| Name | GitHub | Role |
+|------|--------|------|
+| Oshada Nilendra | [@oshada28nilendra-debug](https://github.com/oshada28nilendra-debug) | Project Lead & Full Stack Developer |
+| Member 2 | @username | Role |
+| Member 3 | @username | Role |
+| Member 4 | @username | Role |
+| Member 5 | @username | Role |
+| Member 6 | @username | Role |
+| Member 7 | @username | Role |
+
+---
+
+---
 
 ## 🏫 Academic Information
 
