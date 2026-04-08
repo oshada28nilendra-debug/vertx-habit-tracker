@@ -51,8 +51,18 @@ class _HomeScreenState extends State<HomeScreen> {
     _resetHabitsIfNewDay();
   }
 
-  // ── Permissions ────────────────────────────────────────────────────────────
-
+// ============================================================
+// DEVICE FEATURES MODULE — Role 7: Device Features Developer
+// Developer: Kotuwe Kotuwegedara
+// Responsibilities:
+// - Camera integration (capture profile photos)
+// - Gallery access (select images)
+// - Push notifications (Firebase / local notifications)
+// - Permission handling (Camera, Storage, Notifications)
+// - AndroidManifest configuration
+// ============================================================
+    
+// ── Permissions ────────────────────────────────────────────────────────────
   Future<void> _requestPermissions() async {
     await [
       Permission.camera,
