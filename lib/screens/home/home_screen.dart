@@ -759,7 +759,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+// ============================================================
+// ROLE 4 — Home Dashboard Developer
+// Developer: Induwara Udesh
+// Features:
+//   - Home screen UI
+//   - Today's progress card
+//   - Daily greeting system
+//   - Progress bar & completion tracking
+// ============================================================
   Widget _buildDashboard(
       List<QueryDocumentSnapshot> habits, int completedCount, double progress) {
     final now = DateTime.now();
