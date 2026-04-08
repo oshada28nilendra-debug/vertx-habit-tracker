@@ -911,6 +911,14 @@ class _HomeScreenState extends State<HomeScreen> {
         fontFamily: data['iconFontFamily'] ?? 'MaterialIcons');
     final cardColor = _isDarkMode ? const Color(0xFF16213E) : Colors.white;
 
+
+      // ============================================================
+// Role 3 — Habit Management Developer
+// Developer: Dambure Geesilu | GitHub: vigee32
+// Features:
+//   -Habit categories, icons and colors
+// ============================================================
+      
     return Dismissible(
       key: Key(doc.id),
       direction: DismissDirection.endToStart,
