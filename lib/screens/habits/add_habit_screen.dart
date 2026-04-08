@@ -25,6 +25,14 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
   bool _isLoadingAI = false;
   List<Map<String, dynamic>> _aiSuggestions = [];
 
+
+  // ============================================================
+// Role 3 — Habit Management Developer
+// Developer: Dambure Geesilu | GitHub: vigee32
+// Features:
+//   -Habit categories, icons and colors
+// ============================================================
+  
   final List<String> _categories = [
     'Health',
     'Fitness',
@@ -36,6 +44,14 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
 
   final List<String> _frequencies = ['Daily', 'Weekly', 'Weekdays'];
 
+  // ============================================================
+// Role 3 — Habit Management Developer
+// Developer: Dambure Geesilu | GitHub: vigee32
+// Features:
+//   -Habit categories, icons and colors
+// ============================================================
+
+  
   final List<Color> _colors = [
     const Color(0xFF6C63FF),
     const Color(0xFFFF6B6B),
