@@ -262,7 +262,12 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }
   }
-
+// ============================================================
+// STREAK CALCULATION & HABIT TOGGLE — Role 1: Project Lead
+// Developer: Dissanayaka Dissanayaka
+// Algorithm: increment streak if yesterday, keep if today, reset if gap > 1 day
+// Milestone notifications triggered at 7, 30, 100 day streaks
+// ============================================================
   // ── Habits ─────────────────────────────────────────────────────────────────
 
   Future<void> _toggleHabit(String habitId, bool currentDone) async {
