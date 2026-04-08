@@ -3,6 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// Splash screen — Authentication Developer
+// Developer: Pincha Wickramasinghe
+//GitHub: PDCS-Codes
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
