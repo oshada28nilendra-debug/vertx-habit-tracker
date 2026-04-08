@@ -770,8 +770,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 // ============================================================
-// ROLE 4 — Home Dashboard Developer
-// Developer: Induwara Udesh
+// ROLE — Home Dashboard Developer
+// Developer: Samarasinghe Udesh | Github: InduwaraUS
 // Features:
 //   - Home screen UI
 //   - Today's progress card
