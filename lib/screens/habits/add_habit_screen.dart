@@ -8,7 +8,7 @@ class AddHabitScreen extends StatefulWidget {
   State<AddHabitScreen> createState() => _AddHabitScreenState();
 }
 // ============================================================
-// ADD HABIT SCREEN — Role 5: AI & Analytics Developer
+// Role 5: AI & Analytics Developer
 // Developer: Vidana Rakjitha | GitHub: nethuparakjitha
 // Features:
 //   - AI Habit Suggestions engine (keyword-based analysis)
