@@ -3,6 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../services/auth_service.dart';
 
+// SignUp Screen : Authentication Developer
+// Developer: Pincha Wickramasinghe
+//GitHub: PDCS-Codes
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
