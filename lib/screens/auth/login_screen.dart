@@ -10,6 +10,12 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
+// Login screen — Authentication Developer
+// Developer: Pincha Wickramasinghe
+//GitHub: PDCS-Codes
+//Task: Login screen,
+//Firebase Authentication configuration
+
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
