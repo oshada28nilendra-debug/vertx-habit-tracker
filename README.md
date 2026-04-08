@@ -178,7 +178,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 | Dambure Geesilu | @vigee32 | Habit Management Developer |
 | Samarasinghe Udesh | @InduwaraUS | Home Dashboard Developer |
 | Pincha Wickramasinghe | @PDCS-Codes | Authentication Developer |
-| Member 7 | @username | Role |
+| Udan Wijetunga | @udangit | UI/UX & Settings Developer |
 
 ---
 
