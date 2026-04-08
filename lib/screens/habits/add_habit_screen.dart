@@ -267,7 +267,8 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
       _isLoadingAI = false;
     });
   }
-
+// Auto-fills habit form from selected AI suggestion
+// Developer: Vidana Rakjitha
   void _selectAISuggestion(Map<String, dynamic> suggestion) {
     final category = suggestion['category'] as String;
     setState(() {
