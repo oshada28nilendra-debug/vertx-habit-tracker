@@ -446,7 +446,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+// ============================================================
+// DAILY RESET SYSTEM — Role 1: Project Lead
+// Developer:Dissanayaka Dissanayaka
+// Uses SharedPreferences to store last reset date per user
+// Resets all habit done:false at midnight each new day
+// ============================================================
   Future<void> _resetHabitsIfNewDay() async {
     final prefs = await SharedPreferences.getInstance();
     final today = DateTime.now();
