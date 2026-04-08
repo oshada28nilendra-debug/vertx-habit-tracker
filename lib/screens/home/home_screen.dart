@@ -456,7 +456,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // ── Dialogs ────────────────────────────────────────────────────────────────
-
+    
+//  UI/UX & Settings Developer
+// Developer: [Udan Wijetunga] | GitHub: [udangit]
+    
   void _showNotificationsDialog() {
     showModalBottomSheet(
       context: context,
