@@ -7,7 +7,14 @@ class AddHabitScreen extends StatefulWidget {
   @override
   State<AddHabitScreen> createState() => _AddHabitScreenState();
 }
-
+// ============================================================
+// ADD HABIT SCREEN — Role 5: AI & Analytics Developer
+// Developer: Vidana Rakjitha | GitHub: nethuparakjitha
+// Features:
+//   - AI Habit Suggestions engine (keyword-based analysis)
+//   - Goal-to-habit recommendation system
+//   - Category auto-mapping with icons and colors
+// ============================================================
 class _AddHabitScreenState extends State<AddHabitScreen> {
   final _nameController = TextEditingController();
   final _goalController = TextEditingController();
@@ -78,7 +85,9 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     _goalController.dispose();
     super.dispose();
   }
-
+// AI Suggestion Engine — Analyses user goal keywords
+// and returns personalised habit recommendations
+// Developer: Vidana Rakjitha
   Future<void> _getAISuggestions() async {
     if (_goalController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
