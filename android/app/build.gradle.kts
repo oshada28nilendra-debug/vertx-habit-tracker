@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.vertx"
+    namespace = "com.oshada.vertx"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -21,21 +21,12 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.vertx"
+        applicationId = "com.oshada.vertx"
         minSdk = 24
         targetSdk = 36
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
-    signingConfigs {
-      getByName("debug") {
-        storeFile = file("debug.keystore")
-        storePassword = "android"
-        keyAlias = "androiddebugkey"
-        keyPassword = "android"
-      }
-    }
-
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("debug")
@@ -48,5 +39,5 @@ flutter {
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.2")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }

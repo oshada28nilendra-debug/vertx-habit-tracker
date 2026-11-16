@@ -1,5 +1,7 @@
 # ⚡ Vertx — AI-Powered Habit Tracker
 
+> **Flow update:** the approved charcoal-and-ivory mobile redesign, with habit schedules, local reminders, focus sessions and session goals. See [update notes](UPDATE_NOTES.md) and [implemented UI previews](design/flow-gallery.html).
+
 <p align="center">
   <img src="assets/images/app_icon.png" width="120" alt="Vertx Logo"/>
 </p>
@@ -161,9 +163,9 @@ flutter pub get
 
 4. **Build and run**
 ```bash
-cd android
-./gradlew assembleDebug
-adb install app/build/outputs/apk/debug/app-debug.apk
+flutter run
+# Or build an Android debug APK:
+flutter build apk --debug
 ```
 
 ---
