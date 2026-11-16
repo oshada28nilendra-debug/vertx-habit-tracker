@@ -68,7 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF6C63FF), Color(0xFF3D5AF1)],
+            colors: [Color(0xFF8062D6), Color(0xFF3D5AF1)],
           ),
         ),
         child: SafeArea(
@@ -87,7 +87,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: const Icon(
                     Icons.bolt_rounded,
                     size: 38,
-                    color: Color(0xFF6C63FF),
+                    color: Color(0xFF8062D6),
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -195,7 +195,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: ElevatedButton(
                             onPressed: _isLoading ? null : _signup,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF6C63FF),
+                              backgroundColor: const Color(0xFF8062D6),
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),
@@ -288,7 +288,7 @@ class _SignupScreenState extends State<SignupScreen> {
           color: Colors.grey[400],
           fontSize: 14,
         ),
-        prefixIcon: Icon(icon, color: const Color(0xFF6C63FF)),
+        prefixIcon: Icon(icon, color: const Color(0xFF8062D6)),
         suffixIcon: showToggle
             ? IconButton(
                 icon: Icon(
@@ -309,7 +309,7 @@ class _SignupScreenState extends State<SignupScreen> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(
-            color: Color(0xFF6C63FF),
+            color: Color(0xFF8062D6),
             width: 1.5,
           ),
         ),

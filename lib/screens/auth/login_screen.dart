@@ -16,7 +16,6 @@ class LoginScreen extends StatefulWidget {
 //Task: Login screen,
 //Firebase Authentication configuration
 
-
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -80,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintText: 'you@example.com',
                 hintStyle: GoogleFonts.poppins(color: Colors.grey[400]),
                 prefixIcon:
-                    const Icon(Icons.email_outlined, color: Color(0xFF6C63FF)),
+                    const Icon(Icons.email_outlined, color: Color(0xFF8062D6)),
                 filled: true,
                 fillColor: const Color(0xFFF5F4FF),
                 border: OutlineInputBorder(
@@ -88,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderSide: BorderSide.none),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFF6C63FF)),
+                  borderSide: const BorderSide(color: Color(0xFF8062D6)),
                 ),
               ),
             ),
@@ -107,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   await FirebaseAuth.instance.sendPasswordResetEmail(
                     email: emailController.text.trim(),
                   );
-                  if (mounted) {
+                  if (context.mounted) {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -118,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   }
                 } catch (e) {
-                  if (mounted) {
+                  if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Error: ${e.toString()}'),
@@ -131,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
             },
             child: Text('Send Reset Link',
                 style: GoogleFonts.poppins(
-                    color: const Color(0xFF6C63FF),
+                    color: const Color(0xFF8062D6),
                     fontWeight: FontWeight.w600)),
           ),
         ],
@@ -174,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF6C63FF), Color(0xFF3D5AF1)],
+            colors: [Color(0xFF8062D6), Color(0xFF3D5AF1)],
           ),
         ),
         child: SafeArea(
@@ -192,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Icon(
                     Icons.bolt_rounded,
                     size: 44,
-                    color: Color(0xFF6C63FF),
+                    color: Color(0xFF8062D6),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -221,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(28),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 30,
                         offset: const Offset(0, 10),
                       ),
@@ -252,7 +251,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             prefixIcon: const Icon(
                               Icons.email_outlined,
-                              color: Color(0xFF6C63FF),
+                              color: Color(0xFF8062D6),
                             ),
                             filled: true,
                             fillColor: const Color(0xFFF5F4FF),
@@ -263,7 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
                               borderSide: const BorderSide(
-                                color: Color(0xFF6C63FF),
+                                color: Color(0xFF8062D6),
                                 width: 1.5,
                               ),
                             ),
@@ -299,7 +298,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             prefixIcon: const Icon(
                               Icons.lock_outline,
-                              color: Color(0xFF6C63FF),
+                              color: Color(0xFF8062D6),
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -320,7 +319,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
                               borderSide: const BorderSide(
-                                color: Color(0xFF6C63FF),
+                                color: Color(0xFF8062D6),
                                 width: 1.5,
                               ),
                             ),
@@ -350,7 +349,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Forgot password?',
                               style: GoogleFonts.poppins(
                                 fontSize: 13,
-                                color: const Color(0xFF6C63FF),
+                                color: const Color(0xFF8062D6),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -363,7 +362,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ElevatedButton(
                             onPressed: _isLoading ? null : _login,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF6C63FF),
+                              backgroundColor: const Color(0xFF8062D6),
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),

@@ -1,5 +1,7 @@
 # ⚡ Vertx — AI-Powered Habit Tracker
 
+> **Little steps update:** a playful mobile redesign with scheduled habits, local reminders, focus sessions and session goals. See [update notes](UPDATE_NOTES.md) for setup, data compatibility and device checks.
+
 <p align="center">
   <img src="assets/images/app_icon.png" width="120" alt="Vertx Logo"/>
 </p>
@@ -161,9 +163,9 @@ flutter pub get
 
 4. **Build and run**
 ```bash
-cd android
-./gradlew assembleDebug
-adb install app/build/outputs/apk/debug/app-debug.apk
+flutter run
+# Or build an Android debug APK:
+flutter build apk --debug
 ```
 
 ---

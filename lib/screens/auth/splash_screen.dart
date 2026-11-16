@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF6C63FF),
+      backgroundColor: const Color(0xFF8062D6),
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnim,
@@ -74,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen>
                   child: const Icon(
                     Icons.bolt_rounded,
                     size: 60,
-                    color: Color(0xFF6C63FF),
+                    color: Color(0xFF8062D6),
                   ),
                 ),
                 const SizedBox(height: 24),
