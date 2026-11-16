@@ -84,6 +84,7 @@ class SplashView extends StatelessWidget {
           child: LayoutBuilder(
               builder: (context, constraints) => SingleChildScrollView(
                   child: SizedBox(
+                      width: constraints.maxWidth,
                       height: math.max(620, constraints.maxHeight),
                       child: Padding(
                           padding: const EdgeInsets.fromLTRB(28, 24, 28, 24),
