@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.vertx"
+    namespace = "com.oshada.vertx"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -21,7 +21,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.vertx"
+        applicationId = "com.oshada.vertx"
         minSdk = 24
         targetSdk = 36
         versionCode = flutter.versionCode
