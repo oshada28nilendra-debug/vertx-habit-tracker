@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // Splash screen — Authentication Developer
@@ -55,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF8062D6),
+      backgroundColor: const Color(0xFF242423),
       body: Center(
         child: FadeTransition(
           opacity: _fadeAnim,
@@ -74,13 +73,13 @@ class _SplashScreenState extends State<SplashScreen>
                   child: const Icon(
                     Icons.bolt_rounded,
                     size: 60,
-                    color: Color(0xFF8062D6),
+                    color: Color(0xFF242423),
                   ),
                 ),
                 const SizedBox(height: 24),
                 Text(
                   'Vertx',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -90,7 +89,7 @@ class _SplashScreenState extends State<SplashScreen>
                 const SizedBox(height: 8),
                 Text(
                   'Build habits. Build yourself.',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 16,
                     color: Colors.white70,
                     fontWeight: FontWeight.w400,

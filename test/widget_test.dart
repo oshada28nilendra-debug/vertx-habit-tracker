@@ -46,11 +46,11 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.text('Mon'));
+    await tester.tap(find.byKey(const ValueKey('weekday-1')));
     expect(result, isNull);
-    await tester.tap(find.text('Wed'));
+    await tester.tap(find.byKey(const ValueKey('weekday-3')));
     expect(result!['weekdays'], [1, 3]);
-    await tester.tap(find.text('Mon'));
+    await tester.tap(find.byKey(const ValueKey('weekday-1')));
     expect(result!['weekdays'], [3]);
   });
 
@@ -79,6 +79,6 @@ void main() {
       ),
     );
     expect(tester.takeException(), isNull);
-    expect(find.text('A little better, every day.'), findsOneWidget);
+    expect(find.text('A little progress, daily'), findsOneWidget);
   });
 }

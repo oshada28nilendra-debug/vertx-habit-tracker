@@ -1,103 +1,53 @@
-import '../../utils/app_theme.dart';
-import '../../widgets/schedule_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../models/habit_progress.dart';
+import '../../utils/app_theme.dart';
+import '../../widgets/flow_layout.dart';
+import '../../widgets/habit_tile.dart';
+import '../../widgets/schedule_fields.dart';
 
 class AddHabitScreen extends StatefulWidget {
-  const AddHabitScreen({super.key});
-
+  const AddHabitScreen({super.key, this.initial});
+  final Map<String, dynamic>? initial;
   @override
   State<AddHabitScreen> createState() => _AddHabitScreenState();
 }
 
-// ============================================================
-// Role 2 : AI & Analytics Developer
-// Developer: Vidana Rakjitha | GitHub: nethuparakjitha
-// Features:
-//   - AI Habit Suggestions engine (keyword-based analysis)
-//   - Goal-to-habit recommendation system
-//   - Category auto-mapping with icons and colors
-// ============================================================
 class _AddHabitScreenState extends State<AddHabitScreen> {
+  final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _goalController = TextEditingController();
   String _selectedCategory = 'Health';
-  Color _selectedColor = const Color(0xFF8062D6);
-  IconData _selectedIcon = Icons.star_outline;
-  Map<String, dynamic> _schedule = {
-    'weekdays': [1, 2, 3, 4, 5, 6, 7],
-    'goalTarget': 21,
-    'reminderEnabled': false,
-    'reminderMinutes': 540,
-  };
+  IconData _selectedIcon = Icons.menu_book_outlined;
+  late Map<String, dynamic> _schedule;
+  bool _showMoreIcons = false;
+  bool _showAllCategories = false;
   bool _isLoadingAI = false;
   List<Map<String, dynamic>> _aiSuggestions = [];
-
-  // ============================================================
-  // Role 3 — Habit Management Developer
-  // Developer: Dambure Geesilu | GitHub: vigee32
-  // Features:
-  //   -Habit categories, icons and colors
-  // ============================================================
-
-  final List<String> _categories = [
+  static const _categories = [
     'Health',
-    'Fitness',
     'Learning',
     'Mindfulness',
+    'Fitness',
     'Finance',
-    'Social',
+    'Social'
   ];
-
-  // ============================================================
-  // Role 3 — Habit Management Developer
-  // Developer: Dambure Geesilu | GitHub: vigee32
-  // Features:
-  //   -Habit categories, icons and colors
-  // ============================================================
-
-  final List<Color> _colors = [
-    const Color(0xFF8062D6),
-    const Color(0xFFFF6B6B),
-    const Color(0xFF26C6A6),
-    const Color(0xFFFFB347),
-    const Color(0xFF3D5AF1),
-    const Color(0xFFEC407A),
-  ];
-
-  final List<IconData> _icons = [
-    Icons.water_drop_outlined,
-    Icons.fitness_center_outlined,
-    Icons.menu_book_outlined,
-    Icons.self_improvement_outlined,
-    Icons.bedtime_outlined,
-    Icons.directions_run_outlined,
-    Icons.favorite_outline,
-    Icons.star_outline,
-    Icons.music_note_outlined,
-    Icons.code_outlined,
-    Icons.brush_outlined,
-    Icons.restaurant_outlined,
-  ];
-
-  // Map categories to icons and colors for AI suggestions
-  final Map<String, IconData> _categoryIcons = {
-    'Health': Icons.favorite_outline,
-    'Fitness': Icons.fitness_center_outlined,
-    'Learning': Icons.menu_book_outlined,
-    'Mindfulness': Icons.self_improvement_outlined,
-    'Finance': Icons.attach_money,
-    'Social': Icons.people_outline,
-  };
-
-  final Map<String, Color> _categoryColors = {
-    'Health': const Color(0xFF26C6A6),
-    'Fitness': const Color(0xFFFF6B6B),
-    'Learning': const Color(0xFF8062D6),
-    'Mindfulness': const Color(0xFF3D5AF1),
-    'Finance': const Color(0xFFFFB347),
-    'Social': const Color(0xFFEC407A),
-  };
+  @override
+  void initState() {
+    super.initState();
+    final initial = widget.initial ?? <String, dynamic>{};
+    _nameController.text = initial['name'] as String? ?? '';
+    _selectedCategory = initial['category'] as String? ?? 'Health';
+    _showAllCategories = !_categories.take(3).contains(_selectedCategory);
+    if (initial['iconCode'] != null) {
+      _selectedIcon = habitIcon(initial['iconCode'] as int);
+    }
+    _schedule = {
+      'weekdays': HabitProgress.weekdays(initial),
+      'goalTarget': HabitProgress.goal(initial),
+      'reminderEnabled': initial['reminderEnabled'] ?? false,
+      'reminderMinutes': initial['reminderMinutes'] ?? 540
+    };
+  }
 
   @override
   void dispose() {
@@ -106,15 +56,203 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     super.dispose();
   }
 
-  // AI Suggestion Engine — Analyses user goal keywords
-  // and returns personalised habit recommendations
-  // Developer: Vidana Rakjitha
+  void _save() {
+    if (!_formKey.currentState!.validate()) return;
+    Navigator.pop(context, {
+      'name': _nameController.text.trim(),
+      'category': _selectedCategory,
+      'icon': _selectedIcon,
+      'color': Color(widget.initial?['colorValue'] as int? ??
+          FlowColors.charcoal.toARGB32()),
+      'frequency': 'Custom',
+      ..._schedule
+    });
+  }
+
+  void _selectIdea(Map<String, dynamic> idea) {
+    setState(() {
+      _nameController.text = idea['name'] as String;
+      _selectedCategory = idea['category'] as String;
+      _showAllCategories = !_categories.take(3).contains(_selectedCategory);
+      _selectedIcon = _selectedCategory == 'Learning'
+          ? Icons.menu_book_outlined
+          : _selectedCategory == 'Fitness'
+              ? Icons.directions_run_outlined
+              : Icons.spa_outlined;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final editing = widget.initial != null;
+    final icons = [
+      Icons.menu_book_outlined,
+      Icons.spa_outlined,
+      Icons.water_drop_outlined,
+      if (_showMoreIcons) ...[
+        Icons.directions_run_outlined,
+        Icons.self_improvement_outlined,
+        Icons.bedtime_outlined,
+        Icons.favorite_outline,
+        Icons.star_outline,
+        Icons.music_note_outlined,
+        Icons.code_outlined,
+        Icons.brush_outlined,
+        Icons.restaurant_outlined
+      ],
+      if (!_showMoreIcons &&
+          !const [
+            Icons.menu_book_outlined,
+            Icons.spa_outlined,
+            Icons.water_drop_outlined
+          ].contains(_selectedIcon))
+        _selectedIcon
+    ];
+    return Scaffold(
+        body: SafeArea(
+            bottom: false,
+            child: Form(
+                key: _formKey,
+                child: FlowLayout(
+                    header: FlowHeader(
+                        compact: true,
+                        onBack: () => Navigator.pop(context),
+                        title:
+                            editing ? 'Shape your habit' : 'Plant a new habit',
+                        subtitle: 'Make a little space for yourself.',
+                        child: const SizedBox(height: 20)),
+                    children: [
+                      const Text('Habit name',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500)),
+                      const SizedBox(height: 12),
+                      TextFormField(
+                          controller: _nameController,
+                          textCapitalization: TextCapitalization.sentences,
+                          maxLength: 80,
+                          decoration: const InputDecoration(
+                              hintText: 'e.g. Read 10 pages', counterText: ''),
+                          validator: (value) =>
+                              value == null || value.trim().isEmpty
+                                  ? 'Give your habit a name.'
+                                  : null),
+                      const SizedBox(height: 22),
+                      Row(children: [
+                        const Expanded(
+                            child: Text('Category',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500))),
+                        TextButton(
+                            onPressed: () => setState(
+                                () => _showAllCategories = !_showAllCategories),
+                            child: Text(_showAllCategories ? 'Fewer' : 'More',
+                                style: const TextStyle(fontSize: 11)))
+                      ]),
+                      const SizedBox(height: 8),
+                      Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: (_showAllCategories
+                                  ? _categories
+                                  : _categories.take(3))
+                              .map((category) => FlowPill(
+                                  label: category,
+                                  selected: _selectedCategory == category,
+                                  onTap: () => setState(
+                                      () => _selectedCategory = category)))
+                              .toList()),
+                      const SizedBox(height: 24),
+                      ScheduleFields(
+                          initial: _schedule,
+                          onChanged: (value) => _schedule = value),
+                      const SizedBox(height: 16),
+                      Row(children: [
+                        const Expanded(child: Text('Icon')),
+                        TextButton(
+                            onPressed: () => setState(
+                                () => _showMoreIcons = !_showMoreIcons),
+                            child: Text(
+                                _showMoreIcons ? 'Fewer icons' : 'More icons',
+                                style: const TextStyle(fontSize: 11)))
+                      ]),
+                      Wrap(
+                          spacing: 12,
+                          runSpacing: 8,
+                          children: icons.map((icon) {
+                            final selected = icon == _selectedIcon;
+                            return IconButton.filledTonal(
+                                onPressed: () =>
+                                    setState(() => _selectedIcon = icon),
+                                isSelected: selected,
+                                tooltip: icon == Icons.menu_book_outlined
+                                    ? 'Book'
+                                    : icon == Icons.spa_outlined
+                                        ? 'Leaf'
+                                        : icon == Icons.water_drop_outlined
+                                            ? 'Water'
+                                            : 'Habit icon',
+                                style: IconButton.styleFrom(
+                                    backgroundColor: selected
+                                        ? Theme.of(context)
+                                            .colorScheme
+                                            .onSurface
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .primaryContainer,
+                                    foregroundColor: selected
+                                        ? Theme.of(context).colorScheme.surface
+                                        : Theme.of(context)
+                                            .colorScheme
+                                            .onSurface),
+                                icon: Icon(icon));
+                          }).toList()),
+                      const SizedBox(height: 28),
+                      FilledButton(
+                          onPressed: _save,
+                          child:
+                              Text(editing ? 'Save changes' : 'Create habit')),
+                      if (!editing) ...[
+                        const SizedBox(height: 14),
+                        ExpansionTile(
+                            tilePadding: EdgeInsets.zero,
+                            shape: const Border(),
+                            collapsedShape: const Border(),
+                            title: const Text('Need a starting point?',
+                                style: TextStyle(fontSize: 12)),
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.only(bottom: 12),
+                                  child: Text(
+                                      'Describe your goal for a few habit ideas.',
+                                      style: TextStyle(fontSize: 12))),
+                              TextField(
+                                  controller: _goalController,
+                                  decoration: const InputDecoration(
+                                      hintText: 'e.g. Learn something new')),
+                              TextButton(
+                                  onPressed:
+                                      _isLoadingAI ? null : _getAISuggestions,
+                                  child: const Text('Find habit ideas')),
+                              ..._aiSuggestions.map((idea) => ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text(idea['name'] as String,
+                                      style: const TextStyle(fontSize: 12)),
+                                  subtitle: Text(idea['reason'] as String,
+                                      style: const TextStyle(fontSize: 10)),
+                                  trailing: const Icon(Icons.add, size: 18),
+                                  onTap: () => _selectIdea(idea))),
+                            ]),
+                      ],
+                      SizedBox(height: MediaQuery.paddingOf(context).bottom),
+                    ]))));
+  }
+
   Future<void> _getAISuggestions() async {
     if (_goalController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Please describe your goal first!'),
-          backgroundColor: Colors.orange,
         ),
       );
       return;
@@ -124,9 +262,6 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
       _isLoadingAI = true;
       _aiSuggestions = [];
     });
-
-    // Simulate AI thinking delay
-    await Future.delayed(const Duration(seconds: 2));
 
     final goal = _goalController.text.toLowerCase();
     List<Map<String, dynamic>> suggestions = [];
@@ -287,457 +422,5 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
       _aiSuggestions = suggestions;
       _isLoadingAI = false;
     });
-  }
-
-  // Auto-fills habit form from selected AI suggestion
-  // Developer: Vidana Rakjitha
-  void _selectAISuggestion(Map<String, dynamic> suggestion) {
-    final category = suggestion['category'] as String;
-    setState(() {
-      _nameController.text = suggestion['name'];
-      _selectedCategory = _categories.contains(category) ? category : 'Health';
-      _selectedIcon = _categoryIcons[_selectedCategory] ?? Icons.star_outline;
-      _selectedColor =
-          _categoryColors[_selectedCategory] ?? const Color(0xFF8062D6);
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('"${suggestion['name']}" selected! Tap Create Habit.'),
-        backgroundColor: const Color(0xFF8062D6),
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: buildAppTheme(Brightness.light),
-      child: Scaffold(
-        backgroundColor: const Color(0xFFFFF9F2),
-        appBar: AppBar(
-          backgroundColor: const Color(0xFFFFF9F2),
-          elevation: 0,
-          leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Color(0xFF1A1A2E),
-              size: 20,
-            ),
-          ),
-          title: Text(
-            'New Habit',
-            style: GoogleFonts.poppins(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF1A1A2E),
-            ),
-          ),
-          centerTitle: true,
-        ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // ── AI Suggestions Section ──────────────────────────────────
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF6C63FF), Color(0xFF3D5AF1)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.auto_awesome,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          'AI Habit Suggestions',
-                          style: GoogleFonts.poppins(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    TextField(
-                      controller: _goalController,
-                      style: GoogleFonts.poppins(
-                        color: Colors.white,
-                        fontSize: 14,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: 'e.g. I want to lose weight and stay healthy',
-                        hintStyle: GoogleFonts.poppins(
-                          color: Colors.white60,
-                          fontSize: 13,
-                        ),
-                        filled: true,
-                        fillColor: Colors.white.withValues(alpha: 0.15),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 12,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton.icon(
-                        onPressed: _isLoadingAI ? null : _getAISuggestions,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xFF8062D6),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                        ),
-                        icon: _isLoadingAI
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Color(0xFF6C63FF),
-                                ),
-                              )
-                            : const Icon(Icons.auto_awesome, size: 18),
-                        label: Text(
-                          _isLoadingAI
-                              ? 'Getting suggestions...'
-                              : 'Get AI Suggestions',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // ── AI Results ──────────────────────────────────────────────
-              if (_aiSuggestions.isNotEmpty) ...[
-                const SizedBox(height: 16),
-                Text(
-                  'Tap a suggestion to use it:',
-                  style: GoogleFonts.poppins(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                ..._aiSuggestions.map((suggestion) {
-                  final category = suggestion['category'] as String;
-                  final color =
-                      _categoryColors[category] ?? const Color(0xFF8062D6);
-                  final icon = _categoryIcons[category] ?? Icons.star_outline;
-                  return GestureDetector(
-                    onTap: () => _selectAISuggestion(suggestion),
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 8),
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(
-                          color: color.withValues(alpha: 0.3),
-                          width: 1,
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 42,
-                            height: 42,
-                            decoration: BoxDecoration(
-                              color: color.withValues(alpha: 0.12),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Icon(icon, color: color, size: 22),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  suggestion['name'],
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color(0xFF1A1A2E),
-                                  ),
-                                ),
-                                Text(
-                                  suggestion['reason'],
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 11,
-                                    color: Colors.grey[500],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: color.withValues(alpha: 0.1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              category,
-                              style: GoogleFonts.poppins(
-                                fontSize: 10,
-                                color: color,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-              ],
-
-              const SizedBox(height: 20),
-
-              // ── Manual Entry ────────────────────────────────────────────
-              Center(
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: _selectedColor.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(24),
-                  ),
-                  child: Icon(_selectedIcon, color: _selectedColor, size: 40),
-                ),
-              ),
-              const SizedBox(height: 24),
-              _sectionTitle('Habit Name'),
-              const SizedBox(height: 8),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(
-                  hintText: 'e.g. Drink 8 glasses of water',
-                  hintStyle: GoogleFonts.poppins(
-                    color: Colors.grey[400],
-                    fontSize: 14,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14),
-                    borderSide: const BorderSide(
-                      color: Color(0xFF6C63FF),
-                      width: 1.5,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              _sectionTitle('Category'),
-              const SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: _categories.map((cat) {
-                  final isSelected = _selectedCategory == cat;
-                  return GestureDetector(
-                    onTap: () => setState(() => _selectedCategory = cat),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color:
-                            isSelected ? const Color(0xFF8062D6) : Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: isSelected
-                              ? const Color(0xFF8062D6)
-                              : Colors.grey[300]!,
-                        ),
-                      ),
-                      child: Text(
-                        cat,
-                        style: GoogleFonts.poppins(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: isSelected ? Colors.white : Colors.grey[600],
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 20),
-              ScheduleFields(
-                initial: _schedule,
-                onChanged: (value) => _schedule = value,
-              ),
-              const SizedBox(height: 20),
-              _sectionTitle('Color'),
-              const SizedBox(height: 8),
-              Row(
-                children: _colors.map((color) {
-                  final isSelected = _selectedColor == color;
-                  return GestureDetector(
-                    onTap: () => setState(() => _selectedColor = color),
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 10),
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: color,
-                        shape: BoxShape.circle,
-                        border: isSelected
-                            ? Border.all(color: Colors.white, width: 3)
-                            : null,
-                        boxShadow: isSelected
-                            ? [
-                                BoxShadow(
-                                  color: color.withValues(alpha: 0.5),
-                                  blurRadius: 8,
-                                  spreadRadius: 2,
-                                ),
-                              ]
-                            : null,
-                      ),
-                      child: isSelected
-                          ? const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                              size: 18,
-                            )
-                          : null,
-                    ),
-                  );
-                }).toList(),
-              ),
-              const SizedBox(height: 20),
-              _sectionTitle('Icon'),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 6,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                  ),
-                  itemCount: _icons.length,
-                  itemBuilder: (context, index) {
-                    final icon = _icons[index];
-                    final isSelected = _selectedIcon == icon;
-                    return GestureDetector(
-                      onTap: () => setState(() => _selectedIcon = icon),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? _selectedColor.withValues(alpha: 0.15)
-                              : Colors.grey[100],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Icon(
-                          icon,
-                          color: isSelected ? _selectedColor : Colors.grey[400],
-                          size: 22,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                height: 54,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_nameController.text.trim().isNotEmpty) {
-                      Navigator.pop(context, {
-                        'name': _nameController.text.trim(),
-                        ..._schedule,
-                        'category': _selectedCategory,
-                        'color': _selectedColor,
-                        'icon': _selectedIcon,
-                        'frequency': 'Custom',
-                        'done': false,
-                        'streak': 0,
-                      });
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF8062D6),
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: Text(
-                    'Create Habit',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _sectionTitle(String text) {
-    return Text(
-      text,
-      style: GoogleFonts.poppins(
-        fontSize: 15,
-        fontWeight: FontWeight.w600,
-        color: const Color(0xFF1A1A2E),
-      ),
-    );
   }
 }

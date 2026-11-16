@@ -1,6 +1,6 @@
 # ⚡ Vertx — AI-Powered Habit Tracker
 
-> **Little steps update:** a playful mobile redesign with scheduled habits, local reminders, focus sessions and session goals. See [update notes](UPDATE_NOTES.md) for setup, data compatibility and device checks.
+> **Flow update:** the approved charcoal-and-ivory mobile redesign, with habit schedules, local reminders, focus sessions and session goals. See [update notes](UPDATE_NOTES.md) and [implemented UI previews](design/flow-gallery.html).
 
 <p align="center">
   <img src="assets/images/app_icon.png" width="120" alt="Vertx Logo"/>

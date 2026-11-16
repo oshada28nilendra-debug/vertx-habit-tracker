@@ -1,10 +1,14 @@
-# Vertx: little steps update
+# Vertx: approved Flow update
 
-A colorful, playful Flutter refresh for Android and iPhone. Navigation is now Today, Habits, Focus, Grow and You.
+The approved Flow design is implemented for Android and iPhone using native Flutter layouts. Navigation is Today, Habits, Focus, Grow and You.
 
 ## Included
 
-- Warm cream backgrounds, lavender progress cards, mint/peach shortcuts and a calmer focus view.
+- Charcoal headers, rounded ivory sheets, taupe accents, pill controls and bundled Poppins fonts. The font license is included under assets/fonts.
+- Your edited mockups are respected: no decorative pebble in Habits, Add Habit or Profile. Today and Grow retain a code-drawn progress shape. Focus uses a thin circular countdown.
+- Habits supports working category filters. All six existing categories remain available; the form shows additional categories under More.
+- Add and edit share one form for the name, category, repeat days, reminder, target and icon. Optional habit ideas retain the original keyword-based recommendation logic.
+- Profile controls, photo picker, support dialogs and retained authentication screens share the neutral palette. Dark appearance switches the lower sheets to graphite.
 - Today shows only habits scheduled for the current weekday. The full Habits list retains every habit.
 - Choose any nonempty combination of weekdays, a reminder time and a goal of 7–100 completed sessions. Use a habit’s tune button to update its routine; long press still edits its name/category.
 - Reminders use device-local IANA time zones and repeat on selected weekdays. Notification permission is requested when a reminder or focus session is enabled, rather than at launch. They are rescheduled on launch/resume; reopen the app after changing the device time zone.
@@ -50,9 +54,14 @@ Date-keyed history is stored in the habit document for this initial release. Lon
 
 ## Validation of this change
 
-- Flutter 3.38.9: `flutter pub get` completed and the lockfile is updated.
+- Flutter 3.38.9: offline dependency resolution completed; no package versions changed for the Flow redesign.
 - `flutter analyze`: no issues found.
-- `flutter test`: all five tests pass, including weekday/streak/undo cases, month boundaries, schedule selection and narrow-screen accessibility layout. The optional preview test renders the real dashboard and goals widgets with demo data.
-- Preview images: [Today](design/today-demo.png) and [Grow](design/goals-demo.png). Typography uses Roboto in the test renderer; the app uses Poppins.
+- `flutter test`: all nine tests pass. Checks cover calendar/streak/undo behavior, nonempty weekday selection, category filtering, creating a habit with selected weekdays, focus controls, and small-phone layouts with larger text. The preview test renders production panels and forms in light/dark appearance without Firebase.
+- Previews use the same bundled Poppins font and production widgets as the app, with demo data. See the [six-screen overview](design/flow-overview.jpg) and [full gallery](design/flow-gallery.html). Set VERTX_GENERATE_PREVIEWS=1 when running the preview test to regenerate the individual PNGs.
 - Android bundle build was attempted but blocked by the absent Android SDK. A Linux bundle attempt also lacks clang++. No APK, IPA, signed device build or live Firebase/notification verification is claimed. iOS requires macOS/Xcode.
-- The existing add-habit form currently uses a light surface even when dark appearance is selected.
+- The new form follows the selected appearance. Headers remain charcoal in both modes. Compact phones, larger text and the on-screen keyboard can scroll the full page to reach every control.
+
+
+## Review scope
+
+This change updates the existing draft pull request; main and deployed Firebase rules remain unchanged. The redesign does not add a new Firestore schema. Existing reminders and focus-session persistence are retained. Native Android/iOS packaging, live sign-in, camera access and scheduled notification delivery still require the Firebase configuration and physical-device acceptance checks above; no new APK or IPA is claimed.

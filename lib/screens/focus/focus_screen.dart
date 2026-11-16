@@ -1,3 +1,5 @@
+import '../../widgets/focus_panel.dart';
+import '../../utils/app_theme.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,7 +22,6 @@ class _FocusScreenState extends State<FocusScreen> with WidgetsBindingObserver {
   bool _ready = false;
   bool _busy = false;
   bool get _running => _end != null;
-  bool get _finished => _sessionId != null && _remaining == 0;
   String get _key => 'focus_${FirebaseAuth.instance.currentUser!.uid}';
 
   @override
@@ -176,165 +177,51 @@ class _FocusScreenState extends State<FocusScreen> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    if (!_ready) return const Center(child: CircularProgressIndicator());
-    final theme = Theme.of(context);
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        children: [
-          const SizedBox(height: 12),
-          const Text(
-            'YOUR QUIET CORNER',
-            style: TextStyle(
-              letterSpacing: 3,
-              fontSize: 11,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'One thing at a time.',
-            textAlign: TextAlign.center,
-            style: theme.textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Small pockets of focus. Big little wins.',
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 28),
-          Wrap(
-            spacing: 10,
-            children: [15, 25, 45]
-                .map(
-                  (minutes) => ChoiceChip(
-                    label: Text('$minutes min'),
-                    selected: _minutes == minutes,
-                    onSelected: _sessionId != null || _busy
-                        ? null
-                        : (_) async {
-                            setState(() {
-                              _minutes = minutes;
-                              _remaining = minutes * 60;
-                            });
-                            await _persist();
-                          },
-                  ),
-                )
-                .toList(),
-          ),
-          const SizedBox(height: 32),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 280),
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Positioned.fill(
-                    child: CircularProgressIndicator(
-                      value: 1 - _remaining / (_minutes * 60),
-                      strokeWidth: 14,
-                      strokeCap: StrokeCap.round,
-                      backgroundColor: const Color(0xFFE4DDFB),
-                      color: const Color(0xFF8062D6),
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        _finished ? '🎉' : '🌱',
-                        style: const TextStyle(fontSize: 38),
-                      ),
-                      Text(
-                        '${(_remaining ~/ 60).toString().padLeft(2, '0')}:${(_remaining % 60).toString().padLeft(2, '0')}',
-                        style: theme.textTheme.displayMedium?.copyWith(
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      Text(
-                        _finished
-                            ? 'You showed up!'
-                            : _running
-                                ? 'You’ve got this.'
-                                : 'Room to grow.',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 32),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: _busy
-                  ? null
-                  : _finished
-                      ? _save
-                      : _toggle,
-              icon: Icon(
-                _finished
-                    ? Icons.check_rounded
-                    : _running
-                        ? Icons.pause_rounded
-                        : Icons.play_arrow_rounded,
-              ),
-              label: Text(
-                _busy
-                    ? 'Saving…'
-                    : _finished
-                        ? 'Save my session'
-                        : _running
-                            ? 'Pause focus'
-                            : _sessionId != null
-                                ? 'Resume focus'
-                                : 'Let’s focus',
-              ),
-            ),
-          ),
-          if (_sessionId != null)
-            TextButton(
-              onPressed: _busy ? null : _reset,
-              child: const Text('Reset session'),
-            ),
-          const SizedBox(height: 12),
-          StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .collection('focusSessions')
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Text('Session history could not be loaded.');
-              }
-              final sessions = snapshot.data?.docs ?? [];
-              final minutes = sessions.fold<int>(
-                0,
-                (totalMinutes, doc) =>
-                    totalMinutes +
-                    ((doc.data()['minutes'] as num?)?.toInt() ?? 0),
-              );
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Text(
-                  '${sessions.length} sessions • $minutes focused minutes',
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                ),
-              );
-            },
-          ),
-          const Text(
-            'Focus sessions are saved separately from habit completions.',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12),
-          ),
-        ],
+    if (!_ready) {
+      return const Center(
+          child: CircularProgressIndicator(color: FlowColors.ivory));
+    }
+    return FocusPanel(
+      minutes: _minutes,
+      remaining: _remaining,
+      hasSession: _sessionId != null,
+      running: _running,
+      busy: _busy,
+      onDuration: (minutes) => _action(() async {
+        setState(() {
+          _minutes = minutes;
+          _remaining = minutes * 60;
+        });
+        await _persist();
+      }),
+      onToggle: _toggle,
+      onSave: _save,
+      onReset: _reset,
+      summary: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('focusSessions')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Session history could not be loaded.',
+                textAlign: TextAlign.center, style: TextStyle(fontSize: 11));
+          }
+          if (!snapshot.hasData) {
+            return const Text('Loading your sessions…',
+                textAlign: TextAlign.center, style: TextStyle(fontSize: 11));
+          }
+          final sessions = snapshot.data!.docs;
+          final minutes = sessions.fold<int>(
+              0,
+              (totalMinutes, doc) =>
+                  totalMinutes +
+                  ((doc.data()['minutes'] as num?)?.toInt() ?? 0));
+          return Text('${sessions.length} sessions · $minutes focused minutes',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 11));
+        },
       ),
     );
   }

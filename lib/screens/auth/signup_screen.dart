@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../services/auth_service.dart';
 
 // SignUp Screen : Authentication Developer
@@ -68,7 +67,7 @@ class _SignupScreenState extends State<SignupScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF8062D6), Color(0xFF3D5AF1)],
+            colors: [Color(0xFF242423), Color(0xFF242423)],
           ),
         ),
         child: SafeArea(
@@ -87,13 +86,13 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: const Icon(
                     Icons.bolt_rounded,
                     size: 38,
-                    color: Color(0xFF8062D6),
+                    color: Color(0xFF242423),
                   ),
                 ),
                 const SizedBox(height: 14),
                 Text(
                   'Create account',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -102,7 +101,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 const SizedBox(height: 4),
                 Text(
                   'Start building better habits today',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 14,
                     color: Colors.white70,
                   ),
@@ -195,7 +194,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: ElevatedButton(
                             onPressed: _isLoading ? null : _signup,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF8062D6),
+                              backgroundColor: const Color(0xFF242423),
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),
@@ -213,7 +212,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   )
                                 : Text(
                                     'Create Account',
-                                    style: GoogleFonts.poppins(
+                                    style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -230,7 +229,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   children: [
                     Text(
                       'Already have an account? ',
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                         color: Colors.white70,
                         fontSize: 14,
                       ),
@@ -239,7 +238,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       onTap: () => context.go('/login'),
                       child: Text(
                         'Sign In',
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
@@ -260,7 +259,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget _label(String text) {
     return Text(
       text,
-      style: GoogleFonts.poppins(
+      style: TextStyle(
         fontSize: 13,
         fontWeight: FontWeight.w600,
         color: const Color(0xFF2D2D2D),
@@ -284,11 +283,11 @@ class _SignupScreenState extends State<SignupScreen> {
       keyboardType: keyboardType,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: GoogleFonts.poppins(
+        hintStyle: TextStyle(
           color: Colors.grey[400],
           fontSize: 14,
         ),
-        prefixIcon: Icon(icon, color: const Color(0xFF8062D6)),
+        prefixIcon: Icon(icon, color: const Color(0xFF242423)),
         suffixIcon: showToggle
             ? IconButton(
                 icon: Icon(
@@ -301,7 +300,7 @@ class _SignupScreenState extends State<SignupScreen> {
               )
             : null,
         filled: true,
-        fillColor: const Color(0xFFF5F4FF),
+        fillColor: const Color(0xFFF0E9E1),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide.none,
@@ -309,7 +308,7 @@ class _SignupScreenState extends State<SignupScreen> {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: const BorderSide(
-            color: Color(0xFF8062D6),
+            color: Color(0xFF242423),
             width: 1.5,
           ),
         ),

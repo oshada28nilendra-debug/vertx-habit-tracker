@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../services/auth_service.dart';
 
@@ -63,13 +62,13 @@ class _LoginScreenState extends State<LoginScreen> {
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text('Reset Password',
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+            style: TextStyle(fontWeight: FontWeight.w600)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Enter your email address and we will send you a password reset link.',
-              style: GoogleFonts.poppins(fontSize: 13, color: Colors.grey[600]),
+              style: TextStyle(fontSize: 13, color: Colors.grey[600]),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -77,17 +76,17 @@ class _LoginScreenState extends State<LoginScreen> {
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 hintText: 'you@example.com',
-                hintStyle: GoogleFonts.poppins(color: Colors.grey[400]),
+                hintStyle: TextStyle(color: Colors.grey[400]),
                 prefixIcon:
-                    const Icon(Icons.email_outlined, color: Color(0xFF8062D6)),
+                    const Icon(Icons.email_outlined, color: Color(0xFF242423)),
                 filled: true,
-                fillColor: const Color(0xFFF5F4FF),
+                fillColor: const Color(0xFFF0E9E1),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFF8062D6)),
+                  borderSide: const BorderSide(color: Color(0xFF242423)),
                 ),
               ),
             ),
@@ -96,8 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child:
-                Text('Cancel', style: GoogleFonts.poppins(color: Colors.grey)),
+            child: Text('Cancel', style: TextStyle(color: Colors.grey)),
           ),
           TextButton(
             onPressed: () async {
@@ -129,8 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
               }
             },
             child: Text('Send Reset Link',
-                style: GoogleFonts.poppins(
-                    color: const Color(0xFF8062D6),
+                style: TextStyle(
+                    color: const Color(0xFF242423),
                     fontWeight: FontWeight.w600)),
           ),
         ],
@@ -173,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF8062D6), Color(0xFF3D5AF1)],
+            colors: [Color(0xFF242423), Color(0xFF242423)],
           ),
         ),
         child: SafeArea(
@@ -191,13 +189,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Icon(
                     Icons.bolt_rounded,
                     size: 44,
-                    color: Color(0xFF8062D6),
+                    color: Color(0xFF242423),
                   ),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   'Welcome back',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
@@ -206,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 6),
                 Text(
                   'Sign in to continue your streak',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: 14,
                     color: Colors.white70,
                   ),
@@ -233,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text(
                           'Email',
-                          style: GoogleFonts.poppins(
+                          style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF2D2D2D),
@@ -245,16 +243,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             hintText: 'you@example.com',
-                            hintStyle: GoogleFonts.poppins(
+                            hintStyle: TextStyle(
                               color: Colors.grey[400],
                               fontSize: 14,
                             ),
                             prefixIcon: const Icon(
                               Icons.email_outlined,
-                              color: Color(0xFF8062D6),
+                              color: Color(0xFF242423),
                             ),
                             filled: true,
-                            fillColor: const Color(0xFFF5F4FF),
+                            fillColor: const Color(0xFFF0E9E1),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
                               borderSide: BorderSide.none,
@@ -262,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
                               borderSide: const BorderSide(
-                                color: Color(0xFF8062D6),
+                                color: Color(0xFF242423),
                                 width: 1.5,
                               ),
                             ),
@@ -280,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 20),
                         Text(
                           'Password',
-                          style: GoogleFonts.poppins(
+                          style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,
                             color: const Color(0xFF2D2D2D),
@@ -292,13 +290,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: _obscurePassword,
                           decoration: InputDecoration(
                             hintText: '••••••••',
-                            hintStyle: GoogleFonts.poppins(
+                            hintStyle: TextStyle(
                               color: Colors.grey[400],
                               fontSize: 14,
                             ),
                             prefixIcon: const Icon(
                               Icons.lock_outline,
-                              color: Color(0xFF8062D6),
+                              color: Color(0xFF242423),
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -311,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   () => _obscurePassword = !_obscurePassword),
                             ),
                             filled: true,
-                            fillColor: const Color(0xFFF5F4FF),
+                            fillColor: const Color(0xFFF0E9E1),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
                               borderSide: BorderSide.none,
@@ -319,7 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(14),
                               borderSide: const BorderSide(
-                                color: Color(0xFF8062D6),
+                                color: Color(0xFF242423),
                                 width: 1.5,
                               ),
                             ),
@@ -347,9 +345,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             onTap: () => _forgotPassword(),
                             child: Text(
                               'Forgot password?',
-                              style: GoogleFonts.poppins(
+                              style: TextStyle(
                                 fontSize: 13,
-                                color: const Color(0xFF8062D6),
+                                color: const Color(0xFF242423),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -362,7 +360,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ElevatedButton(
                             onPressed: _isLoading ? null : _login,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF8062D6),
+                              backgroundColor: const Color(0xFF242423),
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(14),
@@ -380,7 +378,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   )
                                 : Text(
                                     'Sign In',
-                                    style: GoogleFonts.poppins(
+                                    style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -396,7 +394,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: Text(
                                 'or',
-                                style: GoogleFonts.poppins(
+                                style: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: 13,
                                 ),
@@ -439,7 +437,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                             label: Text(
                               'Continue with Google',
-                              style: GoogleFonts.poppins(
+                              style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                                 color: const Color(0xFF2D2D2D),
@@ -463,7 +461,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text(
                       "Don't have an account? ",
-                      style: GoogleFonts.poppins(
+                      style: TextStyle(
                         color: Colors.white70,
                         fontSize: 14,
                       ),
@@ -472,7 +470,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () => context.go('/signup'),
                       child: Text(
                         'Sign Up',
-                        style: GoogleFonts.poppins(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
